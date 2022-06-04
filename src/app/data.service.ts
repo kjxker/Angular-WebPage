@@ -11,10 +11,10 @@ export class DataService {
   constructor(private httpClient: HttpClient) { }
 
   getAllCharacter(limit:number,offset:number){
-    return this.httpClient.get("https://localhost:44375/characters?limit="+limit+"&offset="+offset);
+    return this.httpClient.get("http://localhost:5000/characters?limit="+limit+"&offset="+offset);
   }
   getCharacterById(Id:number){
-    return this.httpClient.get("https://localhost:44375/characters/"+Id);
+    return this.httpClient.get("http://localhost:5000/characters/"+Id);
   }
 }
 
