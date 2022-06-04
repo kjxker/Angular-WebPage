@@ -1,0 +1,4 @@
+<button [disabled]="disabled" class="btn rounded-btn btn-primary submitBtn"  [style.pointer-events]="spin?'none':''"  id=submitBtn>
+    <i class="fa fa-spinner fa-spin " *ngIf="spin"> </i>
+   &nbsp; {{spin? 'Loading...' : 'Next 100'}} &nbsp;
+ </button>
