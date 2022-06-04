@@ -15,7 +15,7 @@ import { DataService } from '../data.service';
       <tr>  
         <th>Id</th>  
         <th>Name</th>  
-        <th>Image</th>  
+        <th>{{column}}</th>  
       </tr>  
   </thead>  
   <tbody>  
@@ -23,6 +23,7 @@ import { DataService } from '../data.service';
       <td>{{ character.id }}</td>  
       <td>{{ character.name }}</td>  
       <td>{{ character.image }}</td>  
+      <td>{{ character.desc }}</td>  
     </tr>  
   </tbody>  
   </table>  
@@ -34,17 +35,17 @@ export class MarvelListComponent implements OnInit {
     data:any[] | undefined;
     msg=""
     spinLoader= false;
-   
-  
+    column = "Image";
+    detail = "character.image"
     constructor(public dataService : DataService, private cookieService:CookieService) {}
     ngOnInit(): void {
-      this.spinLoader = true
+      this.spinLoader = true;
       this.cookieService.set('limit','100');
       this.cookieService.set('offset','0');
       this.dataService.getAllCharacter(100,0).subscribe((data:any)=>{
         console.log(data);
         this.data = data;
-        this.spinLoader = false
+        this.spinLoader = false;
 
       });
       this.cookieService.set('limit','100');
@@ -58,6 +59,8 @@ export class MarvelListComponent implements OnInit {
       console.log("offset: "+this.cookieService.get('offset'));
       console.log("limit: "+this.cookieService.get('limit'));
       this.dataService.getAllCharacter(limit,offset).subscribe((data:any)=>{
+        this.column = "Image";
+        this.detail = "character.image"
         console.log("data");
         this.msg = "haha"
         this.data = data;
@@ -67,10 +70,12 @@ export class MarvelListComponent implements OnInit {
       this.cookieService.set('offset',String(offset+limit));
     }
     onPressById(id:number) {
-
+      
       this.dataService.getCharacterById(id).subscribe((data:any)=>{
         console.log("data");
         this.data = data;
+        this.column = "Desc";
+        this.detail = "character.desc"
       });
       this.cookieService.set('offset',String(0));
 
